@@ -875,10 +875,9 @@
     <p>Complete the form below and an investigator will contact you privately within 2 hours. Your information is never shared.</p>
 
     <div class="form-card">
-      <form id="leadForm" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="_subject" value="New Consultation Request — Empire Investigation" />
-        <input type="hidden" name="_captcha" value="false" />
-        <p style="display:none;"><label>Don't fill this out: <input name="_honey" /></label></p>
+      <form id="leadForm" name="consultation" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="consultation" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
         <div class="form-grid">
           <div class="form-row">
             <label for="fname">First Name</label>
@@ -954,11 +953,10 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
     try {
-      const data = new FormData(form);
-      const res = await fetch('https://formsubmit.co/ajax/bobbytaylorwellness@gmail.com', {
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
       });
       if (!res.ok) throw new Error('Submit failed');
       document.getElementById('thankyou').classList.add('active');
