@@ -992,10 +992,7 @@
         body: new URLSearchParams(new FormData(form)).toString(),
       });
       if (!res.ok) throw new Error('Submit failed');
-      document.getElementById('thankyou').classList.add('active');
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXX/XXXXXXXX' });
-      }
+      window.location.href = '/thank-you';
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Request My Free Consultation →';

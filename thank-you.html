@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request Received | Empire Investigation</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Google Ads conversion tracking goes here -->
+  <!-- gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXX/XXXXXXXX' }); -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c8a84b;
+      --gold-light: #ddb95a;
+      --dark: #080808;
+      --dark-3: #181818;
+      --dark-4: #222222;
+      --text: #efefef;
+      --text-muted: #aaa;
+      --border: rgba(200,168,75,0.25);
+      --font-display: 'Spectral', Georgia, serif;
+      --font-body: Georgia, 'Times New Roman', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,8,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .topbar-logo {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .topbar-logo span { color: var(--text-muted); }
+    .topbar-phone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .topbar-phone svg { color: var(--gold); }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+    }
+
+    .card {
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Check icon */
+    .check-ring {
+      width: 80px;
+      height: 80px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 36px;
+      color: var(--gold);
+      opacity: 0;
+      animation: ringIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+    }
+
+    @keyframes ringIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .check-ring { animation: none; opacity: 1; }
+      .card h1, .card p, .divider-line, .next-steps, .phone-block { animation: none; opacity: 1; }
+    }
+
+    .card h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+    }
+
+    .card h1 em {
+      font-style: italic;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
+
+    .card p {
+      font-family: sans-serif;
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 460px;
+      margin: 0 auto 36px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .divider-line {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0;
+      margin: 0 auto 36px;
+      animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.55s forwards;
+    }
+
+    /* Next steps */
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+      text-align: left;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--dark-3);
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: rgba(200,168,75,0.4);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 28px;
+      letter-spacing: -0.04em;
+    }
+
+    .step-text strong {
+      display: block;
+      font-family: sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .step-text p {
+      font-family: sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+      opacity: 1;
+      animation: none;
+    }
+
+    /* Phone block */
+    .phone-block {
+      background: var(--dark-4);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.75s forwards;
+    }
+
+    .phone-block .label {
+      font-family: sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .phone-block a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      display: block;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+
+    .phone-block a:hover { color: var(--gold-light); }
+
+    .phone-block .avail {
+      font-family: sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+    }
+    footer p {
+      font-family: sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">Empire Investigation <span>· Est. 1982</span></div>
+  <a href="tel:8008606068" class="topbar-phone">
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.18 2 2 0 012.11 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    (800) 860-6068
+  </a>
+</div>
+
+<main>
+  <div class="card">
+
+    <div class="check-ring">
+      <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+
+    <h1>We'll Be in <em>Touch.</em></h1>
+
+    <p>Your consultation request was received. An investigator will contact you privately within 2 hours. Everything you share is strictly confidential.</p>
+
+    <div class="divider-line"></div>
+
+    <div class="next-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Watch your phone</strong>
+          <p>We'll call from a private number within 2 hours. Save (800) 860-6068 so you recognize us.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Your information is protected</strong>
+          <p>We never share, sell, or disclose client details under any circumstances.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Can't wait?</strong>
+          <p>Call us directly at any time. We're available 24 hours a day, 7 days a week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-block">
+      <div class="label">Speak with an investigator now</div>
+      <a href="tel:8008606068">(800) 860-6068</a>
+      <div class="avail">Available 24/7 — completely confidential</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p>
+    <strong style="color:var(--gold);letter-spacing:0.08em;">EMPIRE INVESTIGATION LLC</strong><br>
+    4250 Steubenville Pike, Pittsburgh, PA 15205 &nbsp;·&nbsp; <a href="tel:8008606068">(800) 860-6068</a><br><br>
+    &copy; 2026 Empire Investigation LLC. All rights reserved.
+    &nbsp;·&nbsp; <a href="https://areyoususpicious.com">areyoususpicious.com</a>
+  </p>
+</footer>
+
+</body>
+</html>
