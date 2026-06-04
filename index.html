@@ -875,8 +875,7 @@
     <p>Complete the form below and an investigator will contact you privately within 2 hours. Your information is never shared.</p>
 
     <div class="form-card">
-      <form id="leadForm" name="consultation" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="form-name" value="consultation" />
+      <form id="leadForm" onsubmit="handleSubmit(event)">
         <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
         <div class="form-grid">
           <div class="form-row">
@@ -953,7 +952,7 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
     try {
-      const res = await fetch('/', {
+      const res = await fetch('/.netlify/functions/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(new FormData(form)).toString(),
