@@ -960,8 +960,7 @@
         headers: { 'Accept': 'application/json' },
         body: data,
       });
-      const json = await res.json();
-      if (!res.ok || json.success !== 'true') throw new Error('Submit failed');
+      if (!res.ok) throw new Error('Submit failed');
       document.getElementById('thankyou').classList.add('active');
       if (typeof gtag !== 'undefined') {
         gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXX/XXXXXXXX' });
